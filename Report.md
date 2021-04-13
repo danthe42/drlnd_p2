@@ -120,14 +120,13 @@ It can be seen in the notebook, the environment was solved in 41 episodes, and r
 At the final part of the jupyter notebook, after reaching score 35.0, I've demonstrated: 
 
 - how to save the final model, 
-
 - then I've shown how to load the networks after reinitialization,
-
 - and how to (just) play an episode, without training. 
-
 - Moreover, in the last step I've visualized the distribution of the results among the participating agents. 
 
-  
+The saved, final trained models are included in the github repo in the following files: critic_net.pth and agent_net.pth.
+
+
 
 ## Ideas for future work
 
