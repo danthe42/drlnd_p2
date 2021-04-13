@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-# We will use a 2 neural networks each with 3 fully connected layers to define our policy and valud approximator.
+# We will use a 2 neural networks each with 3 fully connected layers to define our policy and value approximator.
 
 class ActorNet(nn.Module):
     """Actor (Policy) Model."""
@@ -30,13 +30,14 @@ class ActorNet(nn.Module):
         
     # forward step: feed forward the input (state) through 3 FC layers and 2 ReLUs to get the estimated action valus. 
     def forward(self, state):
-        """Build a network that maps state -> action values."""
+        """Build a network that maps state -> actions, log probabilitis and entropy of the distribution."""
         x = F.relu(self.fc1(state))
         x = F.relu(self.fc2(x))
         out_values = torch.tanh(self.fc3(x))
+
+        # create a normal distribution and sample the actions from it.
         dist = torch.distributions.Normal(out_values, self.sigma)
         action = dist.sample()
-
         log_prob = dist.log_prob(action).sum(-1).unsqueeze(-1)
         entropy = dist.entropy().sum(-1).unsqueeze(-1)
         
@@ -64,7 +65,7 @@ class CriticNet(nn.Module):
 
     # forward step: feed forward the input (state) through 3 FC layers and 2 ReLUs to get the estimated action valus. 
     def forward(self, state):
-        """Build a network that maps state -> expected values."""
+        """Build a network that maps state -> expected Q values."""
         x = F.relu(self.fc1(state))
         x = F.relu(self.fc2(x))
         v = self.fc3(x)
