@@ -44,11 +44,13 @@ I've chosen the 2nd option because it looked more challenging.
 
 ### Getting Started
 
-1. To set up your python environment to run the code in this repository, follow the instructions below.
+1. The very first step is to clone this repository, and switch to the root directory of it.
+
+2. To set up your python environment to run the code in this repository, follow the instructions below.
 
     First create (and activate) a new environment with Python 3.6. 
 
-    - On **Linux** or **Mac**:
+    - On **Linux** or **Mac**: ( Mac was not tested, but it should work as it's very similar to Linux )
 
     ```
     conda create --name drlnd python=3.6
@@ -62,18 +64,17 @@ I've chosen the 2nd option because it looked more challenging.
     activate drlnd
     ```
 
-2. Install pytorch and a few additional packages available in conda: 
+3. Install pytorch and a few additional packages available in conda: 
 
     ```
     conda install pytorch torchvision torchaudio cudatoolkit=11.1 -c pytorch -c conda-forge
-    conda install --file .\requirements.txt
+    conda install --file requirements.txt
     ```
 
-3. Install OpenAI gym with the unityagents packages with pip, as they are not available with conda: 
+4. Install OpenAI gym and unityagents packages using pip, as they are not available with conda: 
 
     ```
-    pip install gym
-    pip install unityagents
+    pip install gym unityagents
     ```
 
 5. Create an [IPython kernel](http://ipython.readthedocs.io/en/stable/install/kernel_install.html) for the `drlnd` environment:
@@ -82,13 +83,19 @@ I've chosen the 2nd option because it looked more challenging.
     python -m ipykernel install --user --name drlnd --display-name "drlnd"
     ```
 
-6. Before running code in a notebook, change the kernel to match the `drlnd` environment by using the drop-down `Kernel` menu.
+6. Start the jupyter notbook with:
+
+    ```
+    jupyter notebook
+    ```
+
+7. Before running code in the notebook, change the kernel to match the `drlnd` environment by using the drop-down `Kernel` menu.
 
     ![Notebook menu][image3]
 
     
 
-7. Download the environment from one of the links below.  You need only select the environment that matches your operating system:
+8. Download the environment from one of the links below.  You need only select the environment that matches your operating system:
 
     - **_Version 1: One (1) Agent_**
         - Linux: [click here](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux.zip)
@@ -106,7 +113,15 @@ I've chosen the 2nd option because it looked more challenging.
 
     (_For AWS_) If you'd like to train the agent on AWS (and have not [enabled a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md)), then please use [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/one_agent/Reacher_Linux_NoVis.zip) (version 1) or [this link](https://s3-us-west-1.amazonaws.com/udacity-drlnd/P2/Reacher/Reacher_Linux_NoVis.zip) (version 2) to obtain the "headless" version of the environment.  You will **not** be able to watch the agent without enabling a virtual screen, but you will be able to train the agent.  (_To watch the agent, you should follow the instructions to [enable a virtual screen](https://github.com/Unity-Technologies/ml-agents/blob/master/docs/Training-on-Amazon-Web-Service.md), and then download the environment for the **Linux** operating system above._)
 
-8. Unzip (or decompress) the file into the root directory of the GitHub repository. (so it's executable is in the same directory than the .ipynb jupyter notebook files)
+9. Unzip (or decompress) the file into the root directory of the GitHub repository. (so it's main executable file is in the same directory as the .ipynb jupyter notebook files)
+
+10. On Linux (and possibly Mac?) don't forget to set the executable flag on the main file. If it's name is Reacher.* then you can use this line:
+
+    ```
+    chmod a+x Reacher.*
+    ```
+
+     
 
 ### Instructions
 
