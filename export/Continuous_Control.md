@@ -132,7 +132,7 @@ while True:
 print('Total score (averaged over agents) this episode: {}'.format(np.mean(scores)))
 ```
 
-    Total score (averaged over agents) this episode: 0.09749999782070518
+    Total score (averaged over agents) this episode: 0.1494999966584146
     
 
 ### 4. It's Your Turn!
@@ -151,7 +151,7 @@ env_info
 
 
 
-    <unityagents.brain.BrainInfo at 0x16a68b5cd30>
+    <unityagents.brain.BrainInfo at 0x25d74ebe908>
 
 
 
@@ -214,10 +214,10 @@ def a2c(episode=10):
         if e % 10 == 0:
             print('\rEpisode {}\tAverage Score: {:.2f}'.format(e, np.mean(scores_window)))
         if solved==False and np.mean(scores_window)>=30.0:
-            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(e-100, np.mean(scores_window)))
+            print('\nEnvironment solved in {:d} episodes!\tAverage Score: {:.2f}'.format(e, np.mean(scores_window)))
             solved=True
         if np.mean(scores_window)>=35.0:
-            print('\nEnvironment reached average score 35 in {:d} episodes!\tAverage Score: {:.2f}'.format(e-100, np.mean(scores_window)))
+            print('\nEnvironment reached average score 35 in {:d} episodes!\tAverage Score: {:.2f}'.format(e, np.mean(scores_window)))
             torch.save(agent.actor_net.state_dict(), "actor_net.pth")
             torch.save(agent.critic_net.state_dict(), "critic_net.pth")
             print("Model saved.")
@@ -230,32 +230,36 @@ def a2c(episode=10):
 
 ```python
 scores = a2c(1000)
-#scores = a2c(1)
 
 ```
 
     Episode 0	Average Score: 1.07
-    Episode 10	Average Score: 1.34
-    Episode 20	Average Score: 2.12
-    Episode 30	Average Score: 2.93
-    Episode 40	Average Score: 3.51
-    Episode 50	Average Score: 4.18
-    Episode 60	Average Score: 5.39
-    Episode 70	Average Score: 7.76
-    Episode 80	Average Score: 11.17
-    Episode 90	Average Score: 13.86
-    Episode 100	Average Score: 16.27
-    Episode 110	Average Score: 19.85
-    Episode 120	Average Score: 23.26
-    Episode 130	Average Score: 26.50
-    Episode 140	Average Score: 29.71
-    Episode 141	Average Score: 30.01
-    Environment solved in 41 episodes!	Average Score: 30.01
-    Episode 150	Average Score: 32.77
-    Episode 159	Average Score: 35.15
-    Environment reached average score 35 in 59 episodes!	Average Score: 35.15
+    Episode 10	Average Score: 1.46
+    Episode 20	Average Score: 2.09
+    Episode 30	Average Score: 2.91
+    Episode 40	Average Score: 4.13
+    Episode 50	Average Score: 5.56
+    Episode 60	Average Score: 8.20
+    Episode 70	Average Score: 12.00
+    Episode 80	Average Score: 15.01
+    Episode 90	Average Score: 17.45
+    Episode 100	Average Score: 19.61
+    Episode 110	Average Score: 23.21
+    Episode 120	Average Score: 26.68
+    Episode 130	Average Score: 29.97
+    Episode 131	Average Score: 30.28
+    Environment solved in 131 episodes!	Average Score: 30.28
+    Episode 140	Average Score: 32.96
+    Episode 148	Average Score: 35.12
+    Environment reached average score 35 in 148 episodes!	Average Score: 35.12
     Model saved.
     
+
+The training finished, with the following results:
+- The environment was solved in 131 episode, when the average score of all agents over 100 episodes reached 30,   
+- And a bonus if we continue the training after solving the environment: the average agent performance (in the previous 100 episodes) reached even 35.0 after the 148th episode ! That is really nice.
+
+Let's visualize the average scores of the parallel agents in each episodes of this training process from the beginning, in the next section: 
 
 
 ```python
@@ -274,7 +278,7 @@ plt.show()
 
 
     
-![png](output_15_0.png)
+![png](output_16_0.png)
     
 
 
@@ -310,6 +314,8 @@ print("Model loaded.")
     Model loaded.
     
 
+Let's see the loaded agent's performance on 1 episode in normal (not training) mode, using the following code:
+
 
 ```python
 # Play an episode and print the average score of all (20) playing agents
@@ -341,8 +347,10 @@ print("After playing one episode on every simulated agents the average score is:
 
     Playing an episode.
     Using agents:  20
-    After playing one episode on every simulated agents the average score is:  34.06999923847616
+    After playing one episode on every simulated agents the average score is:  36.59649918200448
     
+
+Finally, plot an interesting diagram: let's see the performance of the different, parallel agents: 
 
 
 ```python
@@ -367,7 +375,7 @@ plt.show()
 
 
     
-![png](output_18_0.png)
+![png](output_21_0.png)
     
 
 

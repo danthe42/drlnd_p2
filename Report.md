@@ -8,7 +8,9 @@
 
 This project was about making and train an RL agent to solve the Reacher environment.  
 
-I have chosen Advantage Actor Critic (A2C) with Generalized Advantage Generalization (GAE) and N-step bootstrapping methods for the agent because: 
+There were 2 options to solve this environment and I chose the second one where the goal for the agents is to reach an average score of +30.0 over 100 consecutive episodes over all agents.
+
+I have chosen Advantage Actor Critic (A2C) with Generalized Advantage Generalization (GAE) and N-step bootstrapping methods for the design and implementation of the agent because: 
 
 - I wanted to implement an Actor Critic method. For me, it seems to be the state of the art (or at least very new) and challenging algorithm in Reinforcement Learning. 
 
@@ -84,7 +86,9 @@ actor_network_max_grad_norm = 15		#  Max. norm of the gradients in the Actor net
 
 critic_network_max_grad_norm = 15		#  Max. norm of the gradients in the Critic network to avoid exploding gradient problem 
 
-sigma = F.softplus( 0 )                             # 0.6931. It is used as scale value in the Normal distribution.
+sigma = F.softplus( 0 )                              # 0.6931. It is used as scale value in the Normal distribution.
+
+entropy_weight = 0.01                              # The weight of the entropy loss component in the Actor network's final loss value. (currently entropy_loss is constant, so this parameter is irrelevant)
 
 #### Playing one episode (and train on it)
 
@@ -115,7 +119,7 @@ Moreover, while optimizing the hyperparameters I have found:
 
 During hyperparameter tuning my experience: Actor Critic Reinforcement Learning methods can be very effective in learning if the hyperparameters are good. Unfortunately, wrong parameters often cause complete failure in learning.       
 
-It can be seen in the notebook, the environment was solved in 41 episodes, and reached score 35.0 in just 59 episodes (average score reached 35.0 in episode 60-139) ! 
+As it can be seen in the notebook, the environment was solved in 131 episodes, and even better than that: it reached score 35.0 in just 148 episodes ! (which means that the average score of episodes 49 - 148 is above 35.0)  
 
 At the final part of the jupyter notebook, after reaching score 35.0, I've demonstrated: 
 
@@ -137,6 +141,12 @@ After this implementation, I think that the following ideas and promising direct
 - Hyperparameter tuning: There's never enough CPU/GPU time. I've executed many trainings, but it's very slow so I could not investigate all parameter combinations.  
 
 - It would be interesting to increase/decrease the number of agents in the Unity simulator and check the effect of it on the while training time.
+
+- Instead of the currently used A2C synchronous method it would worth to see the asynchronous A3C version. Is it quicker ? More effective ? A comparison of A2C and A3C would also be very interesting. The first referenced research paper states that usually A2C is better, or has similar performance than A3C, but a couple of diagrams to prove that would be nice. The only problem I need to solve for implementing A3C is that for getting a really realistic asynchronous behavior I have to modify the Udacity simulator to communicate each agent's action/reward/state values individually. Or maybe use more than one Udacity simulator instances, one per agent ? 
+
+- After A3C, a good idea to try ACER (Actor Critic with Experience Replay) which is an off-policy extension of A3C with many enhancements.
+
+- Also it would worth to investigate the Option 1 version of the environment, which is single-threaded, with single agent. There, only one Reacher arm is simulated and trained with. An effective training in this environment can be made using the PPO (Proximal Policy Optimization), or the TRPO (Trust Region Policy Optimization) method. It would be interesting to compare the performance of those single-agent methods with the performance of the distributed A2C/A3C methods.      
 
    
 
